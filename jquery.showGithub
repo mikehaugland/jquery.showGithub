@@ -7,34 +7,22 @@
 */
 
 (function( $ ){
-  var methods = {
-    init : function( options ) {
-      var settings = $.extend( {
-        'username'         : 'haugland'
-      }, options);
-
-      return this.each(function(){
-        var endpoint = "http://github.com/api/v1/json/"+settings.username+"?callback=?";
-        var node = $(this);
-        $.getJSON(endpoint, function(data) {
-          node.empty();
-          $.each(data.user.repositories, function(i, repos) {
-            if (!repos.private) {
-              node.append('<li><a href="'+repos.url+'">'+repos.name+'</a><span class="github_description"> '+repos.description+'</span></li>');
-            }
-          })
-        });
-      });
-    }
-  };
-
   $.fn.showGithub = function( method ) {
-    if ( methods[method] ) {
-      return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
-    } else if ( typeof method === 'object' || ! method ) {
-      return methods.init.apply( this, arguments );
-    } else {
-      $.error( 'Method ' +  method + ' does not exist on jQuery.showTweets' );
-    }
+    var settings = $.extend( {
+      'username'         : 'haugland'
+    }, options);
+
+    return this.each(function(){
+      var endpoint = "http://github.com/api/v1/json/"+settings.username+"?callback=?";
+      var node = $(this);
+      $.getJSON(endpoint, function(data) {
+        node.empty();
+        $.each(data.user.repositories, function(i, repos) {
+          if (!repos.private) {
+            node.append('<li><a href="'+repos.url+'">'+repos.name+'</a><span class="github_description"> '+repos.description+'</span></li>');
+          }
+        })
+      });
+    });
   };
 })( jQuery );
