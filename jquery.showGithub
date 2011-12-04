@@ -7,7 +7,7 @@
 */
 
 (function( $ ){
-  $.fn.showGithub = function( method ) {
+  $.fn.showGithub = function( options ) {
     var settings = $.extend( {
       'username'         : 'haugland'
     }, options);
