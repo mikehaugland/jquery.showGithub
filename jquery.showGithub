@@ -3,7 +3,7 @@
 
     Author: Mike Haugland
     Date: Dec 4th, 2011
-    Version: 1.0.1
+    Version: 1.0.2
 */
 
 (function( $ ){
@@ -13,11 +13,11 @@
     }, options);
 
     return this.each(function(){
-      var endpoint = "http://github.com/api/v1/json/"+settings.username+"?callback=?";
+      var endpoint = "https://api.github.com/users/"+settings.username+"/repos?callback=?";
       var node = $(this);
       $.getJSON(endpoint, function(data) {
         node.empty();
-        $.each(data.user.repositories, function(i, repos) {
+        $.each(data.data, function(i, repos) {
           if (!repos.private) {
             node.append('<li><a href="'+repos.url+'">'+repos.name+'</a><span class="github_description"> '+repos.description+'</span></li>');
           }
